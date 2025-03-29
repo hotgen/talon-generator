@@ -17,49 +17,100 @@
       <form id="pdfForm">
         <div class="form-group">
           <label for="company">Название компании:</label>
-          <input type="text" id="company" name="company" required />
+          <input
+            type="text"
+            id="company"
+            name="company"
+            required
+            placeholder='ООО "Экотехнолоджи"'
+          />
         </div>
         <div class="form-group">
-          <label for="address">Адрес:</label>
-          <input type="text" id="address" name="address" required />
+          <label for="address1">Адрес 1:</label>
+          <input
+            type="text"
+            id="address1"
+            name="address1"
+            required
+            placeholder="Тверь, Тверской пр-т, д.9"
+          />
+        </div>
+        <div class="form-group">
+          <label for="address2">Адрес 2:</label>
+          <input
+            type="text"
+            id="address2"
+            name="address2"
+            required
+            placeholder="Тверь, Тверской пр-т, д.10"
+          />
         </div>
         <div class="form-group">
           <label for="wasteType">Вид отхода:</label>
-          <input type="text" id="wasteType" name="wasteType" required />
-        </div>
-        <div class="form-group">
-          <label for="volume">Объём:</label>
-          <input type="text" id="volume" name="volume" required />
-        </div>
-        <div class="form-group">
-          <label for="marka">Марка Т/С:</label>
-          <input type="text" id="marka" name="marka" required />
-        </div>
-        <div class="form-group">
-          <label for="gosNomer">Гос. номер:</label>
-          <input type="text" id="gosNomer" name="gosNomer" required />
+          <input
+            type="text"
+            id="wasteType"
+            name="wasteType"
+            required
+            placeholder="Грунт"
+          />
         </div>
         <div class="form-group">
           <label for="printNumber">Номер печати:</label>
-          <input type="text" id="printNumber" name="printNumber" required />
+          <input
+            type="text"
+            id="printNumber"
+            name="printNumber"
+            required
+            placeholder="14/02/25-03"
+          />
         </div>
         <div class="form-group">
           <label for="printCompany">Компания печати:</label>
-          <input type="text" id="printCompany" name="printCompany" required />
+          <input
+            type="text"
+            id="printCompany"
+            name="printCompany"
+            required
+            placeholder='ООО "Лотос"'
+          />
+        </div>
+        <div class="form-group">
+          <label for="year">Год:</label>
+          <input
+            type="text"
+            id="year"
+            name="year"
+            required
+            placeholder="2025"
+          />
         </div>
         <div class="form-row">
           <div class="form-group half">
             <label for="idFrom">Начальный номер:</label>
-            <input type="number" id="idFrom" name="idFrom" required />
+            <input
+              type="number"
+              id="idFrom"
+              name="idFrom"
+              required
+              placeholder="1"
+            />
           </div>
           <div class="form-group half">
-            <label for="count">Количество строк:</label>
-            <input type="number" id="count" name="count" required />
+            <label for="count">Количество:</label>
+            <input
+              type="number"
+              id="count"
+              name="count"
+              required
+              placeholder="10"
+            />
           </div>
         </div>
         <button type="submit">Сгенерировать талоны</button>
       </form>
     </div>
+    <script src="roboto-font.js"></script>
     <script src="script.js"></script>
   </body>
 </html>

@@ -3,13 +3,12 @@ document.getElementById("pdfForm").addEventListener("submit", function (e) {
 
   // Get form values
   const company = document.getElementById("company").value;
-  const address = document.getElementById("address").value;
+  const address1 = document.getElementById("address1").value;
+  const address2 = document.getElementById("address2").value;
   const wasteType = document.getElementById("wasteType").value;
-  const volume = document.getElementById("volume").value;
-  const marka = document.getElementById("marka").value;
-  const gosNomer = document.getElementById("gosNomer").value;
   const printNumber = document.getElementById("printNumber").value;
   const printCompany = document.getElementById("printCompany").value;
+  const year = document.getElementById("year").value;
   const idFrom = parseInt(document.getElementById("idFrom").value);
   const count = parseInt(document.getElementById("count").value);
 
@@ -17,12 +16,8 @@ document.getElementById("pdfForm").addEventListener("submit", function (e) {
   const { jsPDF } = window.jspdf;
   const doc = new jsPDF("p", "mm", "a4");
 
-  // Add Cyrillic font support
-  doc.addFont(
-    "https://cdn.jsdelivr.net/npm/@fontsource/roboto@4.5.8/files/roboto-all-400-normal.woff",
-    "Roboto",
-    "normal"
-  );
+  doc.addFileToVFS("Roboto-Regular.ttf", robotoBase64);
+  doc.addFont("Roboto-Regular.ttf", "Roboto", "normal");
   doc.setFont("Roboto");
 
   // Calculate pages needed
@@ -30,7 +25,7 @@ document.getElementById("pdfForm").addEventListener("submit", function (e) {
   const totalTickets = count * 3;
 
   let currentPage = 1;
-  let currentY = 10;
+  // let currentY = 10;
 
   for (let i = 0; i < count; i++) {
     const currentId = (idFrom + i).toString().padStart(4, "0");
@@ -44,47 +39,57 @@ document.getElementById("pdfForm").addEventListener("submit", function (e) {
       // Check if we need a new page
       if (i * 3 + j > 0 && (i * 3 + j) % ticketsPerPage === 0) {
         doc.addPage();
-        currentY = 10;
+        // ty = 10;
         currentPage++;
       }
 
-      const x = 10 + j * 65;
-      currentY = 10 + Math.floor(((i * 3 + j) % ticketsPerPage) / 3) * 90;
+      const tx = 10 + j * 65;
+      const ty = 10 + Math.floor(((i * 3 + j) % ticketsPerPage) / 3) * 90;
+
+      let y = 5;
+
+      function writeText(text, size = 6) {
+        doc.setFontSize(size);
+        doc.text(text, tx + 2, ty + y);
+        y += 5;
+      }
 
       // Draw border
-      doc.rect(x, currentY, 60, 85);
+      doc.rect(tx, ty, 60, 85);
 
-      // Company name and ТАЛОН
-      doc.setFontSize(8);
-      doc.text(company, x + 2, currentY + 5);
-      doc.setFontSize(12);
-      doc.text("ТАЛОН", x + 25, currentY + 10);
+      writeText("Талон № " + currentId, 12);
 
-      // Ticket number
-      doc.setFontSize(8);
-      doc.text("№ " + currentId, x + 2, currentY + 15);
+      writeText(titles[j]);
 
-      // Address
-      doc.setFontSize(6);
-      const splitAddress = doc.splitTextToSize(address, 56);
-      doc.text(splitAddress, x + 2, currentY + 20);
+      writeText("");
 
-      // Title
-      doc.text(titles[j], x + 2, currentY + 30);
+      writeText(company);
 
-      // Waste info
-      doc.text("Вид отхода: " + wasteType, x + 2, currentY + 35);
-      doc.text("Объём: " + volume, x + 2, currentY + 40);
-      doc.text("Марка Т/С: " + marka, x + 2, currentY + 45);
-      doc.text("Гос. номер: " + gosNomer, x + 2, currentY + 50);
+      const splitAddress1 = doc.splitTextToSize(address1, 56);
+      splitAddress1.forEach((line) => {
+        writeText(line);
+      });
 
-      // MP and date
-      doc.text("МП", x + 2, currentY + 60);
-      doc.text('"___"________ 2025 г.', x + 2, currentY + 65);
+      const splitAddress2 = doc.splitTextToSize(address2, 56);
+      splitAddress2.forEach((line) => {
+        writeText(line);
+      });
 
-      // Print number and company
-      doc.setFontSize(5);
-      doc.text(printNumber + " " + printCompany, x + 2, currentY + 70);
+      writeText("");
+
+      writeText("Вид отхода: " + wasteType);
+
+      writeText("Объём: _______________");
+
+      writeText("Марка Т/С: _______________");
+
+      writeText("Гос. номер: _______________");
+
+      writeText("");
+
+      writeText(`_______________ ${year} г.`);
+
+      writeText(printNumber + " " + printCompany);
     }
   }
 
