@@ -13,12 +13,17 @@ document.getElementById("pdfForm").addEventListener("submit", function (e) {
   const idFrom = parseInt(document.getElementById("idFrom").value);
   const count = parseInt(document.getElementById("count").value);
 
-  // Create new jsPDF instance
+  // Create new jsPDF instance with Russian font support
   const { jsPDF } = window.jspdf;
-  const doc = new jsPDF();
+  const doc = new jsPDF("p", "mm", "a4");
 
-  // Set font
-  doc.setFont("helvetica");
+  // Add Cyrillic font support
+  doc.addFont(
+    "https://cdn.jsdelivr.net/npm/@fontsource/roboto@4.5.8/files/roboto-all-400-normal.woff",
+    "Roboto",
+    "normal"
+  );
+  doc.setFont("Roboto");
 
   // Calculate pages needed
   const ticketsPerPage = 9;
