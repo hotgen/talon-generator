@@ -64,8 +64,6 @@ document.getElementById("pdfForm").addEventListener("submit", function (e) {
 
       writeText(titles[j]);
 
-      writeText("");
-
       writeText("Полигон: " + company + "              МП");
 
       const splitAddress1 = doc.splitTextToSize(
@@ -96,11 +94,9 @@ document.getElementById("pdfForm").addEventListener("submit", function (e) {
 
       writeText("");
 
-      writeText(`_______________ ${year} г.`);
+      writeText(`_______________ ${year} г.` + "              МП");
 
       writeText(printNumber);
-
-      writeText("МП");
     }
   }
 
