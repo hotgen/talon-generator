@@ -96,7 +96,7 @@ document.getElementById("pdfForm").addEventListener("submit", function (e) {
 
       writeText(`_______________ ${year} г.` + "              МП");
 
-      writeText(printNumber);
+      writeText("Номер договора: " + printNumber);
     }
   }
 
